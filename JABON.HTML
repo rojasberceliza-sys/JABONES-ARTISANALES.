@@ -1,0 +1,653 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bercy Jabones Naturales</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fff1f6;
+    color: #573a49;
+}
+
+header {
+    background: linear-gradient(135deg,#e77da6,#b64f7d);
+    color: white;
+    text-align: center;
+    padding: 25px 10px;
+    border-radius: 0 0 25px 25px;
+}
+
+.logo {
+    font-size: 45px;
+}
+
+header h1 {
+    font-size: 23px;
+    margin: 8px;
+}
+
+header p {
+    font-size: 13px;
+}
+
+nav {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    background: white;
+    padding: 12px;
+}
+
+nav button {
+    border: none;
+    padding: 11px 14px;
+    background: #f9d8e5;
+    color: #9b426b;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 650px;
+    margin: auto;
+    padding: 15px;
+}
+
+h2 {
+    color: #b64f7d;
+    margin: 18px 0 12px;
+}
+
+.presentacion {
+    background: white;
+    text-align: center;
+    padding: 25px 15px;
+    border-radius: 18px;
+    box-shadow: 0 3px 10px #e9cbd7;
+}
+
+.presentacion p {
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.catalogo {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 12px;
+}
+
+.producto {
+    background: white;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 3px 8px #e9cbd7;
+}
+
+.producto img {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.producto h3 {
+    font-size: 15px;
+    color: #b64f7d;
+    margin: 8px 0;
+}
+
+.producto p {
+    font-size: 12px;
+    margin: 5px;
+}
+
+.precio {
+    font-size: 17px;
+    color: #b64f7d;
+    font-weight: bold;
+    margin: 8px;
+}
+
+.btn {
+    background: #d96798;
+    color: white;
+    border: none;
+    padding: 11px;
+    border-radius: 20px;
+    width: 100%;
+    margin-top: 7px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #a94372;
+}
+
+.btn-rojo {
+    background: #bd5264;
+}
+
+.seccion {
+    background: white;
+    padding: 17px;
+    border-radius: 16px;
+    margin-top: 18px;
+    box-shadow: 0 3px 8px #ead2dc;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 7px 0;
+    border: 1px solid #e7b7ca;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0dce5;
+    font-size: 13px;
+}
+
+.item button {
+    padding: 7px;
+    border: none;
+    border-radius: 7px;
+    margin: 2px;
+}
+
+.total {
+    font-size: 22px;
+    font-weight: bold;
+    color: #b64f7d;
+    margin: 18px 0;
+}
+
+.oculto {
+    display: none;
+}
+
+footer {
+    background: #b64f7d;
+    color: white;
+    text-align: center;
+    padding: 22px;
+    margin-top: 25px;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🌸🧼</div>
+    <h1>BERCY JABONES NATURALES</h1>
+    <p>La belleza de la naturaleza en tu piel</p>
+</header>
+
+<nav>
+    <button onclick="mostrar('inicio')">🏠 Inicio</button>
+    <button onclick="mostrar('catalogo')">🧼 Catálogo</button>
+    <button onclick="mostrar('registro')">➕ Registrar</button>
+    <button onclick="mostrar('carrito')">🛒 Carrito</button>
+    <button onclick="mostrar('pedidos')">📋 Pedidos</button>
+</nav>
+
+<main class="container">
+
+<!-- INICIO -->
+<section id="inicio">
+    <div class="presentacion">
+        <h2>🌿 Bienvenidos a Bercy</h2>
+        <p>
+        Somos un emprendimiento de jabones artesanales
+        elaborados con ingredientes naturales.
+        Ofrecemos variedad de jabones para el cuidado
+        y la limpieza diaria de tu piel.
+        </p>
+        <br>
+        <h3>✨ Belleza natural y frescura ✨</h3>
+    </div>
+
+    <h2>Productos destacados</h2>
+    <div class="catalogo" id="destacados"></div>
+</section>
+
+<!-- CATALOGO -->
+<section id="catalogo" class="oculto">
+    <h2>🧼 Catálogo de jabones</h2>
+
+    <select id="filtro" onchange="listarProductos()">
+        <option value="Todos">Todas las categorías</option>
+        <option value="Sábila">Penca de sábila</option>
+        <option value="Achiote">Achiote</option>
+        <option value="Miel">Miel de abeja</option>
+        <option value="Flores">Flores</option>
+    </select>
+
+    <div class="catalogo" id="productos"></div>
+</section>
+
+<!-- REGISTRO -->
+<section id="registro" class="oculto">
+    <div class="seccion">
+        <h2>➕ Registrar nuevo jabón</h2>
+
+        <form id="formulario">
+            <input id="nombre" placeholder="Nombre del jabón" required>
+
+            <select id="categoria" required>
+                <option value="">Seleccionar categoría</option>
+                <option value="Sábila">Penca de sábila</option>
+                <option value="Achiote">Achiote</option>
+                <option value="Miel">Miel de abeja</option>
+                <option value="Flores">Flores</option>
+            </select>
+
+            <textarea id="descripcion"
+            placeholder="Descripción del producto" required></textarea>
+
+            <input id="precio" type="number" min="0.01"
+            step="0.01" placeholder="Precio en soles" required>
+
+            <label>Fotografía del jabón:</label>
+            <input id="foto" type="file" accept="image/*">
+
+            <button class="btn" type="submit">💾 Guardar jabón</button>
+            <button class="btn" type="button" onclick="cancelarEdicion()">
+                Cancelar
+            </button>
+        </form>
+    </div>
+
+    <div class="seccion">
+        <h2>📦 Administrar productos</h2>
+        <div id="administrar"></div>
+    </div>
+</section>
+
+<!-- CARRITO -->
+<section id="carrito" class="oculto">
+    <div class="seccion">
+        <h2>🛒 Carrito de compras</h2>
+        <div id="listaCarrito"></div>
+        <div class="total" id="total">Total: S/ 0.00</div>
+
+        <button class="btn" onclick="finalizarCompra()">
+            Confirmar pedido
+        </button>
+        <button class="btn btn-rojo" onclick="vaciarCarrito()">
+            Vaciar carrito
+        </button>
+    </div>
+</section>
+
+<!-- PEDIDOS -->
+<section id="pedidos" class="oculto">
+    <div class="seccion">
+        <h2>📋 Historial de pedidos</h2>
+        <div id="historial"></div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <h3>🌸 BERCY JABONES NATURALES 🌸</h3>
+    <p>Productos artesanales elaborados con amor.</p>
+    <p>Gracias por tu preferencia ❤️</p>
+</footer>
+
+<script>
+
+// PRODUCTOS INICIALES
+
+let productos = JSON.parse(localStorage.getItem("productosBercy")) || [
+{
+id:1,
+nombre:"Jabón de Sábila",
+categoria:"Sábila",
+descripcion:"Jabón artesanal con aloe vera.",
+precio:12,
+imagen:"https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400"
+},
+{
+id:2,
+nombre:"Jabón de Achiote",
+categoria:"Achiote",
+descripcion:"Jabón artesanal con achiote.",
+precio:13,
+imagen:"https://images.unsplash.com/photo-1600428853876-fb5a850b444f?w=400"
+},
+{
+id:3,
+nombre:"Jabón de Miel",
+categoria:"Miel",
+descripcion:"Jabón artesanal con miel de abeja.",
+precio:15,
+imagen:"https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=400"
+},
+{
+id:4,
+nombre:"Jabón de Flores",
+categoria:"Flores",
+descripcion:"Jabón artesanal con aroma floral.",
+precio:14,
+imagen:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400"
+}
+];
+
+let carrito = [];
+let pedidos = JSON.parse(localStorage.getItem("pedidosBercy")) || [];
+let editando = null;
+let imagenActual = "";
+
+function guardarProductos() {
+    localStorage.setItem("productosBercy", JSON.stringify(productos));
+}
+
+function escapar(texto) {
+    return String(texto).replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",
+        '"':"&quot;","'":"&#39;"
+    })[c]);
+}
+
+// CAMBIAR SECCIONES
+
+function mostrar(id) {
+    document.querySelectorAll("main section").forEach(s => {
+        s.classList.add("oculto");
+    });
+
+    document.getElementById(id).classList.remove("oculto");
+
+    if(id === "catalogo") listarProductos();
+    if(id === "registro") administrar();
+    if(id === "carrito") actualizarCarrito();
+    if(id === "pedidos") mostrarPedidos();
+}
+
+// TARJETAS DE PRODUCTOS
+
+function tarjeta(p) {
+    return `
+    <div class="producto">
+        <img src="${p.imagen}"
+        alt="${escapar(p.nombre)}"
+        onerror="this.src='https://placehold.co/300x200/f5d8e4/a94d79?text=Jabon+Artesanal'">
+
+        <h3>${escapar(p.nombre)}</h3>
+        <p>${escapar(p.descripcion)}</p>
+        <p>🌿 ${escapar(p.categoria)}</p>
+        <div class="precio">S/ ${Number(p.precio).toFixed(2)}</div>
+
+        <button class="btn" onclick="agregar(${p.id})">
+        🛒 Agregar al carrito
+        </button>
+    </div>`;
+}
+
+function destacados() {
+    document.getElementById("destacados").innerHTML =
+        productos.slice(0,4).map(tarjeta).join("");
+}
+
+function listarProductos() {
+    let filtro = document.getElementById("filtro").value;
+
+    let lista = productos.filter(p =>
+        filtro === "Todos" || p.categoria === filtro
+    );
+
+    document.getElementById("productos").innerHTML =
+        lista.map(tarjeta).join("") ||
+        "<p>No hay productos registrados.</p>";
+}
+
+// REGISTRAR Y EDITAR PRODUCTOS
+
+document.getElementById("formulario").addEventListener(
+"submit", async function(e) {
+    e.preventDefault();
+
+    let archivo = document.getElementById("foto").files[0];
+    let imagen = imagenActual;
+
+    if(archivo) {
+        if(!archivo.type.startsWith("image/")) {
+            alert("Selecciona una imagen válida.");
+            return;
+        }
+
+        if(archivo.size > 2 * 1024 * 1024) {
+            alert("La imagen debe pesar menos de 2 MB.");
+            return;
+        }
+
+        imagen = await new Promise((resolve,reject) => {
+            let lector = new FileReader();
+            lector.onload = () => resolve(lector.result);
+            lector.onerror = reject;
+            lector.readAsDataURL(archivo);
+        });
+    }
+
+    if(!imagen) {
+        imagen = "https://placehold.co/300x200/f5d8e4/a94d79?text=Jabon";
+    }
+
+    let p = {
+        id: editando || Date.now(),
+        nombre: document.getElementById("nombre").value,
+        categoria: document.getElementById("categoria").value,
+        descripcion: document.getElementById("descripcion").value,
+        precio: Number(document.getElementById("precio").value),
+        imagen: imagen
+    };
+
+    if(editando !== null) {
+        productos = productos.map(x => x.id === editando ? p : x);
+    } else {
+        productos.push(p);
+    }
+
+    guardarProductos();
+    cancelarEdicion();
+    administrar();
+    destacados();
+    alert("¡Jabón guardado correctamente!");
+});
+
+function editar(id) {
+    let p = productos.find(x => x.id === id);
+    if(!p) return;
+
+    editando = id;
+    imagenActual = p.imagen;
+
+    document.getElementById("nombre").value = p.nombre;
+    document.getElementById("categoria").value = p.categoria;
+    document.getElementById("descripcion").value = p.descripcion;
+    document.getElementById("precio").value = p.precio;
+
+    mostrar("registro");
+    document.getElementById("nombre").focus();
+}
+
+function cancelarEdicion() {
+    editando = null;
+    imagenActual = "";
+    document.getElementById("formulario").reset();
+}
+
+// ELIMINAR PRODUCTOS
+
+function eliminar(id) {
+    if(confirm("¿Deseas eliminar este producto?")) {
+        productos = productos.filter(p => p.id !== id);
+        guardarProductos();
+        administrar();
+        destacados();
+        listarProductos();
+    }
+}
+
+function administrar() {
+    document.getElementById("administrar").innerHTML =
+    productos.map(p => `
+    <div class="item">
+        <span>
+            <b>${escapar(p.nombre)}</b><br>
+            S/ ${Number(p.precio).toFixed(2)}
+        </span>
+        <span>
+            <button onclick="editar(${p.id})">✏️</button>
+            <button onclick="eliminar(${p.id})">🗑️</button>
+        </span>
+    </div>
+    `).join("") || "<p>No hay productos.</p>";
+}
+
+// CARRITO DE COMPRAS
+
+function agregar(id) {
+    let p = productos.find(x => x.id === id);
+    if(!p) return;
+
+    let encontrado = carrito.find(x => x.id === id);
+
+    if(encontrado) {
+        encontrado.cantidad++;
+    } else {
+        carrito.push({...p,cantidad:1});
+    }
+
+    alert("¡Producto agregado al carrito!");
+}
+
+function actualizarCarrito() {
+    document.getElementById("listaCarrito").innerHTML =
+    carrito.map(p => `
+    <div class="item">
+        <span>
+            <b>${escapar(p.nombre)}</b><br>
+            S/ ${Number(p.precio).toFixed(2)} x ${p.cantidad}
+        </span>
+        <span>
+            <button onclick="cambiar(${p.id},-1)">➖</button>
+            <button onclick="cambiar(${p.id},1)">➕</button>
+            <button onclick="quitar(${p.id})">🗑️</button>
+        </span>
+    </div>
+    `).join("") || "<p>Tu carrito está vacío.</p>";
+
+    let total = carrito.reduce(
+        (s,p) => s + p.precio*p.cantidad,0
+    );
+
+    document.getElementById("total").innerText =
+        "Total: S/ " + total.toFixed(2);
+}
+
+function cambiar(id,cantidad) {
+    let p = carrito.find(x => x.id === id);
+    if(!p) return;
+
+    p.cantidad += cantidad;
+
+    if(p.cantidad <= 0) {
+        quitar(id);
+    } else {
+        actualizarCarrito();
+    }
+}
+
+function quitar(id) {
+    carrito = carrito.filter(p => p.id !== id);
+    actualizarCarrito();
+}
+
+function vaciarCarrito() {
+    if(confirm("¿Vaciar todo el carrito?")) {
+        carrito = [];
+        actualizarCarrito();
+    }
+}
+
+// FINALIZAR PEDIDOS
+
+function finalizarCompra() {
+    if(carrito.length === 0) {
+        alert("El carrito está vacío.");
+        return;
+    }
+
+    let total = carrito.reduce(
+        (s,p) => s + p.precio*p.cantidad,0
+    );
+
+    let detalle = carrito.map(p =>
+        p.nombre + " x " + p.cantidad
+    ).join(", ");
+
+    pedidos.push({
+        fecha:new Date().toLocaleString("es-PE"),
+        detalle:detalle,
+        total:total
+    });
+
+    localStorage.setItem("pedidosBercy",JSON.stringify(pedidos));
+
+    alert("¡Pedido registrado! Total: S/ " + total.toFixed(2));
+
+    carrito = [];
+    actualizarCarrito();
+    mostrar("pedidos");
+}
+
+// HISTORIAL
+
+function mostrarPedidos() {
+    document.getElementById("historial").innerHTML =
+    pedidos.map((p,i) => `
+    <div class="item">
+        <span>
+            <b>Pedido ${i+1}</b><br>
+            ${escapar(p.fecha)}<br>
+            ${escapar(p.detalle)}
+        </span>
+        <b>S/ ${Number(p.total).toFixed(2)}</b>
+    </div>
+    `).join("") || "<p>Aún no hay pedidos registrados.</p>";
+}
+
+// INICIAR APLICACIÓN
+
+guardarProductos();
+destacados();
+listarProductos();
+
+</script>
+
+</body>
+</html>
